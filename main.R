@@ -2,7 +2,7 @@
 
 #### Libraries ####
 library(ggplot2)
-#library(ggmap)
+library(ggmap)
 library(XML)
 library(igraph)
 
@@ -78,7 +78,7 @@ p8 + theme_nothing() +  scale_fill_manual(values=c("green","red4","red1","royalb
 # 677699
 # popu - summa(yot) = n.622000
 
-####Testing below this####
+####Testing below this, ####
 dividedSuomi3b <- takeToRekPop(countiesWithCenter,divid = 3,popu = popu)
 
 divByJoensuu <- takeToRekPop(countiesWithCenter,kunta0="Joensuu",divid = 3,popu=popu)
