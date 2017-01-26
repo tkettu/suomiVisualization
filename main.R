@@ -49,7 +49,7 @@ getPlotFin <- function(countiesBorders, countiesWithC, divider,county=NA){
   div <- addDivider2(countiesBorders,divida)
   
   p <- ggplot() + geom_polygon(data = div, aes(x=long,y=lat,group=group,fill=divider)) +
-    coord_fixed(1.3)
+    coord_fixed(2.0)
   
   return(p)
 }
@@ -89,7 +89,7 @@ div3Jns <- addDivider2(countiesD,divByJoensuu)
 div3Turku <- addDivider2(countiesD,divByTurku)
 
 ggplot() + geom_polygon(data=div3b,aes(x=long,y=lat,group=group,fill=divider)) +
-  coord_fixed(1.3) + theme_nothing() +  scale_fill_manual(values=c("green","red","blue"))
+  coord_fixed(2.0) + theme_nothing() +  scale_fill_manual(values=c("green","red","blue"))
 
 ggplot() + geom_polygon(data=div3Jns,aes(x=long,y=lat,group=group,fill=divider)) +
   coord_fixed(1.3) + theme_nothing() +  scale_fill_manual(values=c("green","red","blue"))
