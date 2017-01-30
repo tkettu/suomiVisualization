@@ -3,8 +3,11 @@ countCenterP <- function(coords){
   
   coo <- coordsToList(coords)
   
-  kplat <- sum(coo$lat)/length(coo$lat)
-  kplon <- sum(coo$lon)/length(coo$lon)
+  #kplat <- sum(coo$lat)/length(coo$lat)
+  #kplon <- sum(coo$lon)/length(coo$lon)
+  
+  kplat <- sum(coo$lon)/length(coo$lon)
+  kplon <- sum(coo$lat)/length(coo$lat)
   
   kp <- list(lat=kplat,lon=kplon)
   return(kp)
@@ -31,9 +34,40 @@ addCenterPoints <- function(k){
   return(k)
 }
 
-distance <- function(x1,y1,x2,y2){
+#convert degrees to radians
+degRad <- function(deg){
+  return (deg*pi/180)
+}
+
+#distance <- function(x1,y1,x2,y2){
+distance <- function(lat1,lon1,lat2,lon2){
+
+  # USE:
+  # Haversine
+  # formula:	a = sin²(Δφ/2) + cos φ1 ⋅ cos φ2 ⋅ sin²(Δλ/2)
+  # c = 2 ⋅ atan2( √a, √(1−a) )
+  # d = R ⋅ c
+  # where	φ is latitude, λ is longitude, R is earth’s radius (mean radius = 6,371km);
+  # note that angles need to be in radians to pass to trig functions!
   
-  return(sqrt((x1-x2)^2 + (y1-y2)^2))
+  lat1 <- degRad(lat1)
+  lat2 <- degRad(lat2)
+  lon1 <- degRad(lon1)
+  lon2 <- degRad(lon2)
+  
+  delta.lat <- (lat2 - lat1)
+  delta.lon <- (lon2 - lon1)
+  
+  R <- 6371
+  
+  a <- sin(delta.lat/2)^2 + cos(lat1)*cos(lat2)*sin(delta.lon/2)^2
+  c <- 2*atan2(sqrt(a),sqrt(1-a))
+
+  return(R*c)
+  #OR
+  # d = r*do
+  # where do = arccos(sin (lat1))*sin(lat2) + cos(lat2)*cos(|lon2-lon1|))
+  #lat lon in radius
 }
 
 countDistMatrix <- function(kWithC){
@@ -87,12 +121,8 @@ takeToPop2 <- function(kunta,subPop,g){
     k<-1
     ta <- j
     while (pop < subPop){
-     #while(TRUE){ 
-      #k <- k + 1
-      #j <- j + 1
-      #Todo Lisätään ko. grouppiin viimeisin jos pop on lähempänä subpoppia kuin edellisen kunnan tapauksessa
       popn <- pop + countiesWithCenter$popul[nearest[k]]
-      #print(popn)
+  
       if(popn > subPop){
         
         if(popn > ( 2*subPop - pop)){
@@ -116,8 +146,7 @@ takeToPop2 <- function(kunta,subPop,g){
         k <- k + 1
         j <- j + 1
       }
-      
-      #TODO lisätään rekursiivinen kutsu niin, että koko populaatio jaettu osiin
+    
     }
     tl <- j
     thispop <- pop

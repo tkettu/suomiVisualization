@@ -14,6 +14,9 @@ coordsToList <- function(coo){
     
     coords$lat[i] <- as.numeric(ko[1])
     coords$lon[i] <- as.numeric(ko[2])
+    #Todo, should be like below, but requires changes elsewhere
+    #coords$lat[i] <- as.numeric(ko[2])
+    #coords$lon[i] <- as.numeric(ko[1])
   }
   
   coords <- data.frame(coords)

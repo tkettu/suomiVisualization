@@ -28,6 +28,7 @@ countiesPop <- merge(counties,popul,by='name')
 #### County data to data-frame with lat lon coordinates border points for each county ####
 source('functions/coordinateHandler.R')
 
+# Obs.!!! This take time, Todo; could check if can optimize
 countiesD <- countiesToFrame(countiesPop)
 countiesD$divider <- as.character(0)
 #### Center points of counties ####
@@ -37,7 +38,7 @@ c <- countiesPop[!duplicated(countiesPop$name),]
 countiesWithCenter <- addCenterPoints(c)
 
 #### Distances between centers ####
-
+#Todo this is where we are
 distM <- countDistMatrix(countiesWithCenter)
 popu <- sum(popul$popul)
 
@@ -58,6 +59,15 @@ getPlotFin <- function(countiesBorders, countiesWithC, divider,county=NA){
 p6 <- getPlotFin(countiesD,countiesWithCenter,6)
 
 p6 + theme_nothing() +  scale_fill_manual(values=c("green","red4","red1","royalblue3","royalblue1","green3"))
+#NEW populs
+# 848777
+# 919886
+# 909831
+# 913025
+# 905129
+# 954622
+
+#OLD
 #893800
 #901089
 #937774
@@ -69,6 +79,17 @@ p6 + theme_nothing() +  scale_fill_manual(values=c("green","red4","red1","royalb
 p8 <- getPlotFin(countiesD,countiesWithCenter,8)
 
 p8 + theme_nothing() +  scale_fill_manual(values=c("green","red4","red1","royalblue3","royalblue1","gold3","gold","green3"))
+#new
+# 612664
+# 688934
+# 661552
+# 682650
+# 686517
+# 675918
+# 679312
+# 763723
+
+#OLD
 # 612664
 # 702368
 # 683338
