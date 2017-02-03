@@ -100,6 +100,34 @@ p8 + theme_nothing() +  scale_fill_manual(values=c("green","red4","red1","royalb
 # popu - summa(yot) = n.622000
 
 ####Testing below this, ####
+
+p6 + theme_minimal() + scale_fill_manual(name="Population (2014)", values=c("green","red4","red1","royalblue3","royalblue1","green3"),
+                                         breaks=c("1","2","3","4","5","0"),
+                                         labels=c("848777",
+                                                  "919886",
+                                                  "909831",
+                                                  "913025",
+                                                  "905129",
+                                                  "954622"
+                                         ))
+
+p8 + theme_minimal() + scale_fill_manual(name="Population (2014)", values=c("green","red4","red1","royalblue3","royalblue1","gold3","gold","green3"),
+                                         breaks=c("1","2","3","4","5","6","7","0"),
+                                         labels=c("612664",
+                                                  "688934",
+                                                  "661552",
+                                                  "682650",
+                                                  "686517",
+                                                  "675918",
+                                                  "679312",
+                                                  "763723"
+                                                  ))
+
+
+###
+dividdi <- takeToRekPop(countiesWithCenter,divid = 6,popu = popu)
+dddd <- addDivider2(countiesD,dividdi)
+  
 dividedSuomi3b <- takeToRekPop(countiesWithCenter,divid = 3,popu = popu)
 
 divByJoensuu <- takeToRekPop(countiesWithCenter,kunta0="Joensuu",divid = 3,popu=popu)
@@ -140,3 +168,6 @@ div3 <- addDivider(dat = countiesD,dividedSuomi3)
 
 ggplot() + geom_polygon(data=div3,aes(x=long,y=lat,group=group,fill=divider)) +
   coord_fixed(1.3) + theme_nothing() +  scale_fill_manual(values=c("green","red","blue"))
+
+#### Add population as points ####
+
